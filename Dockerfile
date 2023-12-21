@@ -7,7 +7,7 @@ RUN yarn install
 
 COPY . .
 RUN yarn build
-EXPOSE 8080
+EXPOSE 3000
 # Install PM2 globally
 RUN yarn global add pm2
 CMD [ "yarn","start" ]
