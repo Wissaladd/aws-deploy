@@ -9,8 +9,6 @@ RUN yarn build
 FROM node:18.18.0
 WORKDIR /app
 COPY --from=build /app/dist ./dist
-RUN yarn install --production
+RUN yarn install
 
-RUN yarn pm2:deploy:app
-
-CMD [ "node", "dist/main" ]
+CMD [ "pm2-runtime", "dist/main" ]
