@@ -1,14 +1,9 @@
-FROM node:18.18.0 as build
-RUN yarn global add pm2
+FROM node:18-alpine
+RUN npm install pm2 yarn @nestjs/cli -g --force
 WORKDIR /app
 COPY package*.json ./
-RUN yarn install
+RUN yarn install --production
 COPY . .
 RUN yarn build
-
-FROM node:18.18.0
-WORKDIR /app
-COPY --from=build /app/dist ./dist
-RUN yarn install
-
-CMD [ "pm2-runtime", "dist/main" ]
+EXPOSE 3000
+CMD ["yarn","pm2:start:app"]
