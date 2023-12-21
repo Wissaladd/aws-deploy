@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 
 COPY . .
-RUN yarn build
+RUN yarn build --production
 RUN yarn pm2:deploy:app
 
 CMD [ "yarn","start" ]
