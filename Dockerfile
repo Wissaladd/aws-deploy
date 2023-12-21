@@ -1,5 +1,5 @@
 FROM node:18.18.0 as build
-
+RUN yarn global add pm2
 WORKDIR /app
 
 COPY package*.json ./
@@ -7,7 +7,6 @@ RUN yarn install
 
 COPY . .
 RUN yarn build
-EXPOSE 3000
-# Install PM2 globally
-RUN yarn global add pm2
+RUN yarn pm2:deploy:app
+
 CMD [ "yarn","start" ]
